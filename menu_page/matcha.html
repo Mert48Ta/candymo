@@ -3,280 +3,170 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CandyMo 3D Ürün Menüsü - Tatlılar</title>
-    <meta name="description" content="CandyMo ürün menüsünde, 3D dinamik tasarım ile sunulan Stawberry, Mojito ve Cool Lime içeceklerini keşfedin. Lezzet ve görselliğin buluştuğu deneyimi yaşayın.">
-    <meta name="keywords" content="CandyMo, 3D Ürün Menüsü, Stawberry, Mojito, Cool Lime, içecek menüsü, dinamik tasarım, lezzetli içecekler">
-    <meta name="robots" content="index, follow">
-    <meta property="og:title" content="CandyMo 3D Ürün Menüsü - Stawberry, Mojito & Cool Lime">
-    <meta property="og:description" content="3D dinamik tasarım ile sunulan CandyMo menüsünde, Stawberry, Mojito ve Cool Lime gibi özel içecekleri keşfedin.">
-    <meta property="og:image" content="https://candymocoffee.com.tr/img/Logo.png">
-    <meta property="og:url" content="https://candymocoffee.com.tr/candymo-menu">
-    <meta property="og:type" content="website">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="CandyMo 3D Ürün Menüsü - Stawberry, Mojito & Cool Lime">
-    <meta name="twitter:description" content="3D dinamik tasarım ile sunulan CandyMo menüsünde lezzetli içecekleri keşfedin.">
-    <meta name="twitter:image" content="https://candymocoffee.com.tr/img/Logo.png">
+    <title>CandyMo - Matcha İçecekler</title>
     <link rel="stylesheet" href="../css/navbar.css">
     <style>
-        .picker-container {
-            position: relative;
-            width: 100%;
-            height: 100vh;
-            perspective: 1500px;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            min-height: 100vh;
+        }
+
+        .menu-container {
+            max-width: 1200px;
+            margin: 80px auto 20px;
+            padding: 20px;
+            max-height: calc(100vh - 100px);
+            overflow-y: auto;
+        }
+
+        .menu-container::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .menu-container::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+
+        .menu-container::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 4px;
+        }
+
+        .menu-container::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        .menu-title {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+            font-weight: 600;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            padding: 20px;
+        }
+
+        .menu-item {
+            background: white;
+            border-radius: 15px;
             overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
         }
-        .picker {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform-style: preserve-3d;
-            transform: translate(-50%, -50%);
-            transition: transform 0.1s ease-out;
+
+        .menu-item:hover {
+            transform: translateY(-5px);
         }
-        .picker-item {
-            position: absolute;
-            width: 300px;
-            height: 100px;
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            border-radius: 10px;
-            backface-visibility: hidden;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            background-color: white;
-            padding: 10px;
-            gap: 10px;
-            left: -150px; /* Kartın genişliğinin yarısı kadar sola kaydırma */
-        }
-        .product-info {
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-            flex: 1;
-        }
-        .product-name {
-            font-size: 16px;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-        .product-price {
-            font-size: 14px;
-            color: #555;
-        }
-        .product-image {
-            width: 60px !important;
-            height: 60px !important;
+
+        .menu-item-image {
+            width: 100%;
+            height: 200px;
             object-fit: cover;
-            border-radius: 8px;
+        }
+
+        .menu-item-content {
+            padding: 20px;
+        }
+
+        .menu-item-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .menu-item-price {
+            font-size: 1.1rem;
+            color: #e44d26;
+            font-weight: 600;
+        }
+
+        .menu-item-description {
+            color: #666;
+            margin-top: 10px;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .menu-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 15px;
+                padding: 10px;
+            }
+
+            .menu-title {
+                font-size: 2rem;
+            }
         }
     </style>
 </head>
 <body>
-   <!-- Navbar -->
-   <nav class="navbar">
-    <div class="scroll-btn scroll-left" onclick="scrollMenu(-100)">‹</div>
-    <div class="navbar-container" id="navbarContainer">
-        <a href="hot_coffee.html">☕ Sıcak Kahveler</a>
-        <a href="cold_coffee.html">🧊 Soğuk Kahveler</a>
-        <a href="traditaniol_coffee.html">☕ Türk Kahvesi, Sıcak Çikolata ve Salep</a>
-        <a href="tea_kindof.html">🍵 Çay ve Bitki Çayları</a>
-        <a href="drinker.html">🥤 Meşrubatlar</a>
-        <a href="bubble.html">🧋 Bubble</a>
-        <a href="milkshake.html">🥛 Milkshake</a>
-        <a href="frozen.html">❄️ Frozen</a>
-        <a href="frappe.html">🍹 Frappe</a>
-        <a href="special.html">🍸 Mokteyl</a>
-        <a href="matcha.html">🍵 Matcha</a>
-        <a href="desert.html">🍰 Tatlılar</a>
-        <a href="cookie.html">🍪 Atıştırmalıklar</a>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="scroll-btn scroll-left" onclick="scrollMenu(-100)">‹</div>
+        <div class="navbar-container" id="navbarContainer">
+            <a href="hot_coffee.html">☕ Sıcak Kahveler</a>
+            <a href="cold_coffee.html">🧊 Soğuk Kahveler</a>
+            <a href="traditaniol_coffee.html">☕ Türk Kahvesi, Sıcak Çikolata ve Salep</a>
+            <a href="tea_kindof.html">🍵 Çay ve Bitki Çayları</a>
+            <a href="drinker.html">🥤 Meşrubatlar</a>
+            <a href="bubble.html">🧋 Bubble</a>
+            <a href="milkshake.html">🥛 Milkshake</a>
+            <a href="frozen.html">❄️ Frozen</a>
+            <a href="frappe.html">🍹 Frappe</a>
+            <a href="special.html">🍸 Mokteyl</a>
+            <a href="matcha.html">🍵 Matcha</a>
+            <a href="desert.html">🍰 Tatlılar</a>
+            <a href="cookie.html">🍪 Atıştırmalıklar</a>
+        </div>
+        <div class="scroll-btn scroll-right" onclick="scrollMenu(100)">›</div>
+    </nav>
+
+    <div class="menu-container">
+        <h1 class="menu-title">Matcha İçecekler</h1>
+        <div class="menu-grid" id="menuGrid"></div>
     </div>
-    <div class="scroll-btn scroll-right" onclick="scrollMenu(100)">›</div>
-</nav>
 
-<!-- 3D Ürün Menüsü -->
-<div class="picker-container">
-    <div class="picker" id="picker"></div>
-</div>
+    <script>
+        const menuItems = [
+            { name: "Ice Matcha Latte", price: "185₺", img: "../img/Menu_resimler/Ice_Matcha.JPG", description: "Soğuk matcha latte" },
+            { name: "Ice Strawberry Matcha Latte", price: "200₺", img: "../img/Menu_resimler/Ice_Strowberry_Matcha.JPG", description: "Çilekli soğuk matcha latte" },
+            { name: "Ice Mango Matcha Latte", price: "200₺", img: "../img/Menu_resimler/Ice_mango_Matcha.JPG", description: "Mangolu soğuk matcha latte" },
+            { name: "Ice Vanilya Matcha Latte", price: "200₺", img: "../img/Menu_resimler/Ice_Matcha.JPG", description: "Vanilyalı soğuk matcha latte" },
+            { name: "Hot Matcha Latte", price: "175₺", img: "../img/Menu_resimler/Ice_Matcha.JPG", description: "Sıcak matcha latte" },
+            { name: "Hot Strawberry Matcha Latte", price: "190₺", img: "../img/Menu_resimler/Ice_Strowberry_Matcha.JPG", description: "Çilekli sıcak matcha latte" },
+            { name: "Hot Mango Matcha Latte", price: "190₺", img: "../img/Menu_resimler/Ice_mango_Matcha.JPG", description: "Mangolu sıcak matcha latte" },
+            { name: "Hot Vanilya Matcha Latte", price: "190₺", img: "../img/Menu_resimler/Ice_Matcha.JPG", description: "Vanilyalı sıcak matcha latte" }
+        ];
 
-<script>
-    const picker = document.getElementById('picker');
-    const itemsData = [
-        { type: 'product', name: "Matcha Latte", price: "85₺", img: "../img/Menu_resimler/Ice_Matcha.JPG" },
-        { type: 'product', name: "Ice Matcha", price: "85₺", img: "../img/Menu_resimler/Ice_Matcha.JPG" },
-        { type: 'product', name: "Ice Strawberry Matcha", price: "95₺", img: "../img/Menu_resimler/Ice_Strowberry_Matcha.JPG" },
-        { type: 'product', name: "Ice Mango Matcha", price: "95₺", img: "../img/Menu_resimler/Ice_mango_Matcha.JPG" }
-    ];
+        const menuGrid = document.getElementById('menuGrid');
 
-    const totalItems = itemsData.length;
-    const anglePerItem = -180 / totalItems;
-    const radius = 250;
-    let currentRotation = 0;
-
-    // Öğeleri dinamik olarak oluşturuyoruz
-    itemsData.forEach((itemData, index) => {
-        const item = document.createElement('div');
-        item.className = 'picker-item';
-        item.innerHTML = `
-            <img src="${itemData.img}" alt="${itemData.name}" class="product-image">
-            <div class="product-info">
-                <span class="product-name">${itemData.name}</span>
-                <span class="product-price">${itemData.price}</span>
-            </div>
-        `;
-        const angle = index * anglePerItem;
-        item.style.transform = `rotateX(${angle}deg) translateZ(${radius}px)`;
-        picker.appendChild(item);
-    });
-
-    const items = document.querySelectorAll('.picker-item');
-
-    function updatePicker() {
-        items.forEach((item, index) => {
-            const angle = (index * anglePerItem) + currentRotation;
-            item.style.transform = `rotateX(${angle}deg) translateZ(${radius}px)`;
+        menuItems.forEach(item => {
+            const menuItem = document.createElement('div');
+            menuItem.className = 'menu-item';
+            menuItem.innerHTML = `
+                <img src="${item.img}" alt="${item.name}" class="menu-item-image">
+                <div class="menu-item-content">
+                    <h3 class="menu-item-name">${item.name}</h3>
+                    <div class="menu-item-price">${item.price}</div>
+                    <p class="menu-item-description">${item.description}</p>
+                </div>
+            `;
+            menuGrid.appendChild(menuItem);
         });
-    }
-
-    let isDragging = false;
-    let startY = 0;
-    let startRotation = 0;
-
-    picker.addEventListener('touchstart', (e) => {
-        isDragging = true;
-        startY = e.touches[0].clientY;
-        startRotation = currentRotation;
-        picker.style.cursor = "grabbing";
-    });
-
-    picker.addEventListener('touchmove', (e) => {
-        if (!isDragging) return;
-        const deltaY = e.touches[0].clientY - startY;
-        // Yavaş hareket için, deltaY'i bir katsayı ile çarptık
-        currentRotation = startRotation + deltaY * 0.2; // Yavaşlatma faktörü
-        updatePicker();
-    });
-
-    picker.addEventListener('touchend', () => {
-        isDragging = false;
-        // Kaydırma bittikten sonra dönüşümü en yakın açılara yuvarlıyoruz
-        currentRotation = Math.round(currentRotation / anglePerItem) * anglePerItem;
-        updatePicker();
-        picker.style.cursor = "grab";
-    });
-
-    // Scroll (tekerlek) hareketiyle menüyü hareket ettirme
-    const container = document.querySelector('.picker-container');
-    let isScrolling = false;
-    let scrollSpeed = 0.5;
-
-    // Ekranın herhangi bir yerine dokunarak kaydırma
-    container.addEventListener('touchstart', (e) => {
-        // Navbar'a tıklanmadığından emin oluyoruz
-        if (!e.target.closest('.navbar')) {
-            isDragging = true;
-            startY = e.touches[0].clientY;
-            startRotation = currentRotation;
-            container.style.cursor = "grabbing";
-        }
-    });
-
-    container.addEventListener('touchmove', (e) => {
-        if (!isDragging) return;
-        const deltaY = e.touches[0].clientY - startY;
-        currentRotation = startRotation + deltaY * 0.5;
-        updatePicker();
-    });
-
-    container.addEventListener('touchend', () => {
-        isDragging = false;
-        currentRotation = Math.round(currentRotation / anglePerItem) * anglePerItem;
-        updatePicker();
-        container.style.cursor = "grab";
-    });
-
-    // Mouse ile kaydırma için
-    container.addEventListener('mousedown', (e) => {
-        // Navbar'a tıklanmadığından emin oluyoruz
-        if (!e.target.closest('.navbar')) {
-            isDragging = true;
-            startY = e.clientY;
-            startRotation = currentRotation;
-            container.style.cursor = "grabbing";
-        }
-    });
-
-    container.addEventListener('mousemove', (e) => {
-        if (!isDragging) return;
-        const deltaY = e.clientY - startY;
-        currentRotation = startRotation + deltaY * 0.5;
-        updatePicker();
-    });
-
-    container.addEventListener('mouseup', () => {
-        isDragging = false;
-        currentRotation = Math.round(currentRotation / anglePerItem) * anglePerItem;
-        updatePicker();
-        container.style.cursor = "grab";
-    });
-
-    // Mouse container dışına çıktığında
-    container.addEventListener('mouseleave', () => {
-        isDragging = false;
-        container.style.cursor = "grab";
-    });
-
-    function smoothScroll() {
-        if (!isScrolling) return;
-        updatePicker();
-        requestAnimationFrame(smoothScroll);
-    }
-
-    container.addEventListener('wheel', (e) => {
-        e.preventDefault();
-        currentRotation -= e.deltaY * scrollSpeed;
-        if (!isScrolling) {
-            isScrolling = true;
-            requestAnimationFrame(smoothScroll);
-        }
-    });
-</script>
-<script>
-  const navbarContainer = document.getElementById('navbarContainer');
-
-  function scrollMenu(amount) {
-      navbarContainer.scrollBy({
-          left: amount,
-          behavior: 'smooth'
-      });
-  }
-</script>
-
-<script>
-    // Navbar scroll pozisyonunu korumak için
-    document.addEventListener('DOMContentLoaded', function() {
-        const navbarContainer = document.getElementById('navbarContainer');
-        const links = navbarContainer.getElementsByTagName('a');
-        
-        for(let link of links) {
-            link.addEventListener('click', function(e) {
-                // Mevcut scroll pozisyonunu localStorage'a kaydet
-                localStorage.setItem('navbarScrollPosition', navbarContainer.scrollLeft);
-            });
-        }
-        
-        // Sayfa yüklendiğinde kaydedilmiş scroll pozisyonunu geri yükle
-        const savedPosition = localStorage.getItem('navbarScrollPosition');
-        if(savedPosition) {
-            navbarContainer.scrollLeft = savedPosition;
-        }
-    });
-
-    // Mevcut scroll fonksiyonu
-    function scrollMenu(direction) {
-        const container = document.getElementById('navbarContainer');
-        container.scrollLeft += direction;
-    }
-</script>
-
+    </script>
 </body>
 </html>

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- Sayfa Başlığı -->
-    <title>CandyMo 3D Ürün Menüsü - Tatlılar</title>
+    <title>CandyMo - Tatlılar</title>
     
     <!-- Meta Açıklaması -->
     <meta name="description" content="CandyMo ürün menüsünde, 3D dinamik tasarım ile sunulan Stawberry, Mojito ve Cool Lime içeceklerini keşfedin. Lezzet ve görselliğin buluştuğu deneyimi yaşayın.">
@@ -31,56 +31,110 @@
     
     <link rel="stylesheet" href="../css/navbar.css">
     <style>
-      .picker-container {
-          position: relative;
-          width: 100%;
-          height: 100vh;
-          perspective: 1500px;
-          overflow: hidden;
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       }
-      .picker {
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          transform-style: preserve-3d;
-          transform: translate(-50%, -50%);
-          transition: transform 0.1s ease-out;
+
+      body {
+        background-color: #f5f5f5;
+        min-height: 100vh;
       }
-      .picker-item {
-          position: absolute;
-          width: 300px;
-          height: 100px;
-          display: flex;
-          flex-direction: row;
-          align-items: center;
-          border-radius: 10px;
-          backface-visibility: hidden;
-          box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-          background-color: white;
+
+      .menu-container {
+        max-width: 1200px;
+        margin: 80px auto 20px;
+        padding: 20px;
+        max-height: calc(100vh - 100px);
+        overflow-y: auto;
+      }
+
+      .menu-container::-webkit-scrollbar {
+        width: 8px;
+      }
+
+      .menu-container::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 4px;
+      }
+
+      .menu-container::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 4px;
+      }
+
+      .menu-container::-webkit-scrollbar-thumb:hover {
+        background: #555;
+      }
+
+      .menu-title {
+        text-align: center;
+        color: #333;
+        margin-bottom: 30px;
+        font-size: 2.5rem;
+        font-weight: 600;
+      }
+
+      .menu-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 25px;
+        padding: 20px;
+      }
+
+      .menu-item {
+        background: white;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        transition: transform 0.3s ease;
+      }
+
+      .menu-item:hover {
+        transform: translateY(-5px);
+      }
+
+      .menu-item-image {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+      }
+
+      .menu-item-content {
+        padding: 20px;
+      }
+
+      .menu-item-name {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 10px;
+      }
+
+      .menu-item-price {
+        font-size: 1.1rem;
+        color: #e44d26;
+        font-weight: 600;
+      }
+
+      .menu-item-description {
+        color: #666;
+        margin-top: 10px;
+        font-size: 0.9rem;
+      }
+
+      @media (max-width: 768px) {
+        .menu-grid {
+          grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+          gap: 15px;
           padding: 10px;
-          gap: 10px;
-          left: -150px;
-      }
-      .product-info {
-          display: flex;
-          flex-direction: row;
-          justify-content: center;
-          flex: 1;
-      }
-      .product-name {
-          font-size: 16px;
-          font-weight: bold;
-          margin-bottom: 5px;
-      }
-      .product-price {
-          font-size: 14px;
-          color: #555;
-      }
-      .product-image {
-          width: 60px !important;
-          height: 60px !important;
-          object-fit: cover;
-          border-radius: 8px;
+        }
+
+        .menu-title {
+          font-size: 2rem;
+        }
       }
     </style>
   </head>
@@ -107,141 +161,40 @@
 </nav>
 
 
-  <!-- 3D Ürün Menüsü -->
-  <div class="picker-container">
-    <!-- Ortadaki seçili öğeyi vurgulayan overlay -->
-    <div class="picker-overlay"></div>
-    <!-- 3D menü alanı (tam merkezde konumlanıyor) -->
-    <div class="picker" id="picker">
-      <!-- Öğeler JavaScript ile oluşturulacak -->
-    </div>
+  <div class="menu-container">
+    <h1 class="menu-title">Tatlılar</h1>
+    <div class="menu-grid" id="menuGrid"></div>
   </div>
 
   <script>
-    const picker = document.getElementById('picker');
-
-    // Ürün ve yazı öğelerini içeren veri dizisi
-    const itemsData = [
-        { type: 'product', name: "Akvaryoom (Special)", price: "240₺", img: "../img/Menu_resimler/Akvaryoom.JPG" },
-        { type: 'product', name: "Meyveli Kruvasan Sandwich", price: "250₺", img: "../img/Menu_resimler/Meyveli_kruvasan_sandwich.JPG" },
-        { type: 'product', name: "Klasik Waffle", price: "210₺", img: "../img/Menu_resimler/Waffle_classic.JPG" },
-        { type: 'product', name: "Magnolya (Çilek) (Ev Yapımı)", price: "140₺", img: "../img/Menu_resimler/Çilekli_Magnolya.JPG" },
-        { type: 'product', name: "Frambuazlı Cheesecake", price: "180₺", img: "../img/Menu_resimler/Frambuazlı_Cheescake.JPG" },
-        { type: 'product', name: "Lotus Cheesecake", price: "180₺", img: "../img/Menu_resimler/Lotus_Cheescake.JPG" },
-        { type: 'product', name: "Limon Cheesecake", price: "180₺", img: "../img/Menu_resimler/Limonlu_cheescake.JPG" },
-        { type: 'product', name: "San Sebastian Cheesecake", price: "210₺", img: "../img/Menu_resimler/Sansebastian.JPG" },
-        { type: 'product', name: "Triliçe", price: "160₺", img: "../img/Menu_resimler/Triliçe.JPG" },
-        { type: 'product', name: "Tiramisu", price: "180₺", img: "../img/Menu_resimler/Tiremisu.JPG" },
-        { type: 'product', name: "Sufle", price: "160₺", img: "../img/Menu_resimler/Sufle.JPG" }
+    const menuItems = [
+        { name: "Akvaryoom (Special)", price: "270₺", img: "../img/Menu_resimler/Akvaryoom.JPG", description: "Özel Akvaryoom tatlısı" },
+        { name: "Meyveli Kruvasan Sandwich", price: "280₺", img: "../img/Menu_resimler/Meyveli_kruvasan_sandwich.JPG", description: "Meyveli kruvasan sandwich" },
+        { name: "Klasik Waffle", price: "220₺", img: "../img/Menu_resimler/Waffle_classic.JPG", description: "Klasik waffle" },
+        { name: "Magnolya (Çilek) (Ev Yapımı)", price: "150₺", img: "../img/Menu_resimler/Çilekli_Magnolya.JPG", description: "Ev yapımı çilekli magnolya" },
+        { name: "Frambuazlı Cheesecake", price: "200₺", img: "../img/Menu_resimler/Frambuazlı_Cheescake.JPG", description: "Frambuazlı cheesecake" },
+        { name: "Lotus Cheesecake", price: "200₺", img: "../img/Menu_resimler/Lotus_Cheescake.JPG", description: "Lotus aromalı cheesecake" },
+        { name: "Limon Cheesecake", price: "200₺", img: "../img/Menu_resimler/Limonlu_cheescake.JPG", description: "Limonlu cheesecake" },
+        { name: "San Sebastian Cheesecake", price: "240₺", img: "../img/Menu_resimler/Sansebastian.JPG", description: "San Sebastian usulü cheesecake" },
+        { name: "Triliçe", price: "170₺", img: "../img/Menu_resimler/Triliçe.JPG", description: "Geleneksel triliçe" },
+        { name: "Tiramisu", price: "200₺", img: "../img/Menu_resimler/Tiremisu.JPG", description: "İtalyan usulü tiramisu" },
+        { name: "Sufle", price: "180₺", img: "../img/Menu_resimler/Sufle.JPG", description: "Sıcak servis edilen sufle" }
     ];
 
-    const totalItems = itemsData.length;
-    const anglePerItem = 360 / totalItems;
-    const radius = 250;
-    let currentRotation = 0;
+    const menuGrid = document.getElementById('menuGrid');
 
-    // Öğeleri dinamik olarak oluşturuyoruz
-    itemsData.forEach((itemData, index) => {
-        const item = document.createElement('div');
-        item.className = 'picker-item';
-        item.innerHTML = `
-            <img src="${itemData.img}" alt="${itemData.name}" class="product-image">
-            <div class="product-info">
-                <span class="product-name">${itemData.name}</span>
-                <span class="product-price">${itemData.price}</span>
+    menuItems.forEach(item => {
+        const menuItem = document.createElement('div');
+        menuItem.className = 'menu-item';
+        menuItem.innerHTML = `
+            <img src="${item.img}" alt="${item.name}" class="menu-item-image">
+            <div class="menu-item-content">
+                <h3 class="menu-item-name">${item.name}</h3>
+                <div class="menu-item-price">${item.price}</div>
+                <p class="menu-item-description">${item.description}</p>
             </div>
         `;
-        const angle = index * anglePerItem;
-        item.style.transform = `rotateX(${angle}deg) translateZ(${radius}px)`;
-        picker.appendChild(item);
-    });
-
-    const items = document.querySelectorAll('.picker-item');
-
-    function updatePicker() {
-        items.forEach((item, index) => {
-            const angle = (index * anglePerItem) + currentRotation;
-            item.style.transform = `rotateX(${angle}deg) translateZ(${radius}px)`;
-        });
-    }
-
-    let isDragging = false;
-    let startY = 0;
-    let startRotation = 0;
-
-    const container = document.querySelector('.picker-container');
-    let isScrolling = false;
-    let scrollSpeed = 0.5;
-
-    // Ekranın herhangi bir yerine dokunarak kaydırma
-    container.addEventListener('touchstart', (e) => {
-        // Navbar'a tıklanmadığından emin oluyoruz
-        if (!e.target.closest('.navbar')) {
-            isDragging = true;
-            startY = e.touches[0].clientY;
-            startRotation = currentRotation;
-            container.style.cursor = "grabbing";
-        }
-    });
-
-    container.addEventListener('touchmove', (e) => {
-        if (!isDragging) return;
-        const deltaY = e.touches[0].clientY - startY;
-        currentRotation = startRotation + deltaY * 0.5;
-        updatePicker();
-    });
-
-    container.addEventListener('touchend', () => {
-        isDragging = false;
-        currentRotation = Math.round(currentRotation / anglePerItem) * anglePerItem;
-        updatePicker();
-        container.style.cursor = "grab";
-    });
-
-    // Mouse ile kaydırma için
-    container.addEventListener('mousedown', (e) => {
-        // Navbar'a tıklanmadığından emin oluyoruz
-        if (!e.target.closest('.navbar')) {
-            isDragging = true;
-            startY = e.clientY;
-            startRotation = currentRotation;
-            container.style.cursor = "grabbing";
-        }
-    });
-
-    container.addEventListener('mousemove', (e) => {
-        if (!isDragging) return;
-        const deltaY = e.clientY - startY;
-        currentRotation = startRotation + deltaY * 0.5;
-        updatePicker();
-    });
-
-    container.addEventListener('mouseup', () => {
-        isDragging = false;
-        currentRotation = Math.round(currentRotation / anglePerItem) * anglePerItem;
-        updatePicker();
-        container.style.cursor = "grab";
-    });
-
-    // Mouse container dışına çıktığında
-    container.addEventListener('mouseleave', () => {
-        isDragging = false;
-        container.style.cursor = "grab";
-    });
-
-    function smoothScroll() {
-        if (!isScrolling) return;
-        updatePicker();
-        requestAnimationFrame(smoothScroll);
-    }
-
-    container.addEventListener('wheel', (e) => {
-        e.preventDefault();
-        currentRotation -= e.deltaY * scrollSpeed;
-        if (!isScrolling) {
-            isScrolling = true;
-            requestAnimationFrame(smoothScroll);
-        }
+        menuGrid.appendChild(menuItem);
     });
   </script>
 <script>
