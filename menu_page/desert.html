@@ -167,6 +167,22 @@
   </div>
 
   <script>
+    // Save scroll position before navigating
+    document.querySelectorAll(".navbar-container a").forEach(link => {
+        link.addEventListener("click", () => {
+            localStorage.setItem("navbarScrollPos", document.getElementById("navbarContainer").scrollLeft);
+        });
+    });
+
+    // Restore scroll position on page load
+    window.addEventListener("load", () => {
+        const savedScrollPos = localStorage.getItem("navbarScrollPos");
+        if (savedScrollPos) {
+            document.getElementById("navbarContainer").scrollLeft = parseInt(savedScrollPos);
+            localStorage.removeItem("navbarScrollPos"); // Clean up after restoring
+        }
+    });
+
     const menuItems = [
         { name: "Akvaryoom (Special)", price: "270₺", img: "../img/Menu_resimler/Akvaryoom.JPG", description: "Özel Akvaryoom tatlısı" },
         { name: "Meyveli Kruvasan Sandwich", price: "280₺", img: "../img/Menu_resimler/Meyveli_kruvasan_sandwich.JPG", description: "Meyveli kruvasan sandwich" },

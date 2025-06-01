@@ -166,6 +166,22 @@
     </div>
 
     <script>
+        // Save scroll position before navigating
+        document.querySelectorAll(".navbar-container a").forEach(link => {
+            link.addEventListener("click", () => {
+                localStorage.setItem("navbarScrollPos", document.getElementById("navbarContainer").scrollLeft);
+            });
+        });
+
+        // Restore scroll position on page load
+        window.addEventListener("load", () => {
+            const savedScrollPos = localStorage.getItem("navbarScrollPos");
+            if (savedScrollPos) {
+                document.getElementById("navbarContainer").scrollLeft = parseInt(savedScrollPos);
+                localStorage.removeItem("navbarScrollPos"); // Clean up after restoring
+            }
+        });
+
         const menuItems = [
             { name: "Mangolu Frozen", price: "175₺", img: "../img/Menu_resimler/Magnolu_Frozen.JPG", description: "Mango aromalı frozen içecek" },
             { name: "Çilekli Frozen", price: "175₺", img: "../img/Menu_resimler/Çilekli_Frozen.JPG", description: "Çilek aromalı frozen içecek" },

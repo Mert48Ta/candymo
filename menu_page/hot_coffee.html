@@ -141,6 +141,22 @@
     </div>
 
     <script>
+        // Save scroll position before navigating
+        document.querySelectorAll(".navbar-container a").forEach(link => {
+            link.addEventListener("click", () => {
+                localStorage.setItem("navbarScrollPos", document.getElementById("navbarContainer").scrollLeft);
+            });
+        });
+
+        // Restore scroll position on page load
+        window.addEventListener("load", () => {
+            const savedScrollPos = localStorage.getItem("navbarScrollPos");
+            if (savedScrollPos) {
+                document.getElementById("navbarContainer").scrollLeft = parseInt(savedScrollPos);
+                localStorage.removeItem("navbarScrollPos"); // Clean up after restoring
+            }
+        });
+
         const menuItems = [
             { name: "Espresso", price: "90₺", img: "../img/Menu_resimler/Single_Espresso.JPG", description: "Tek shot espresso" },
             { name: "Double Espresso", price: "100₺", img: "../img/Menu_resimler/Double_Espresso.JPG", description: "Çift shot espresso" },

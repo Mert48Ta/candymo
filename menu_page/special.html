@@ -141,11 +141,30 @@
     </div>
 
     <script>
+        // Save scroll position before navigating
+        document.querySelectorAll(".navbar-container a").forEach(link => {
+            link.addEventListener("click", () => {
+                localStorage.setItem("navbarScrollPos", document.getElementById("navbarContainer").scrollLeft);
+            });
+        });
+
+        // Restore scroll position on page load
+        window.addEventListener("load", () => {
+            const savedScrollPos = localStorage.getItem("navbarScrollPos");
+            if (savedScrollPos) {
+                document.getElementById("navbarContainer").scrollLeft = parseInt(savedScrollPos);
+                localStorage.removeItem("navbarScrollPos"); // Clean up after restoring
+            }
+        });
+
         const menuItems = [
-            { name: "Mojito", price: "85₺", img: "../img/Menu_resimler/Mojito.JPG", description: "Klasik mojito" },
-            { name: "Mojito (Nar)", price: "85₺", img: "../img/Menu_resimler/mojito_Pomegrante.JPG", description: "Nar aromalı mojito" },
-            { name: "Berryibiscus", price: "85₺", img: "../img/Menu_resimler/Brryibiscus.JPG", description: "Meyve ve hibiskus karışımı" },
-            { name: "CandyMo Strawberry", price: "85₺", img: "../img/Menu_resimler/CandyMo_Strownerry.JPG", description: "Çilekli özel içecek" }
+            { name: "Mojito", price: "150₺", img: "../img/Menu_resimler/Mojito.JPG", description: "Klasik mojito" },
+            { name: "Berryibiscus", price: "150₺", img: "../img/Menu_resimler/Brryibiscus.JPG", description: "Meyve ve hibiskus karışımı" },
+            { name: "CandyMo Strawberry", price: "150₺", img: "../img/Menu_resimler/CandyMo_Strownerry.JPG", description: "Çilekli özel içecek" },
+            { name: "Cool Lime", price: "150₺", img: "../img/Menu_resimler/Limonata.JPG", description: "Serinletici limonata" },
+            { name: "Sweet Chili", price: "170₺", img: "../img/Menu_resimler/Sweet_chili.JPG", description: "Acılı tatlı içecek" },
+            { name: "Milky Lemonade", price: "170₺", img: "../img/Menu_resimler/Milklylemonade.JPG", description: "Sütlü limonata" },
+            { name: "Mojito Pomegranete", price: "170₺", img: "../img/Menu_resimler/mojito_Pomegrante.JPG", description: "Narlı mojito" }
         ];
 
         const menuGrid = document.getElementById('menuGrid');

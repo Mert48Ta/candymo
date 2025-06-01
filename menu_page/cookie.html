@@ -166,6 +166,22 @@
     </div>
 
     <script>
+        // Save scroll position before navigating
+        document.querySelectorAll(".navbar-container a").forEach(link => {
+            link.addEventListener("click", () => {
+                localStorage.setItem("navbarScrollPos", document.getElementById("navbarContainer").scrollLeft);
+            });
+        });
+
+        // Restore scroll position on page load
+        window.addEventListener("load", () => {
+            const savedScrollPos = localStorage.getItem("navbarScrollPos");
+            if (savedScrollPos) {
+                document.getElementById("navbarContainer").scrollLeft = parseInt(savedScrollPos);
+                localStorage.removeItem("navbarScrollPos"); // Clean up after restoring
+            }
+        });
+
         const menuItems = [
             { name: "Sade Kruvasan", price: "150₺", img: "../img/Menu_resimler/Sade_kruvasan.JPG", description: "Taze pişmiş sade kruvasan" },
             { name: "Kruvasan Sandwich (Labne Peynir,Cheddar Peyniri,Dana Füme ve Marul)", price: "250₺", img: "../img/Menu_resimler/Kruvasan_Sandwich.JPG", description: "Labne peynir, cheddar peyniri, dana füme ve marul ile hazırlanan kruvasan sandwich" },

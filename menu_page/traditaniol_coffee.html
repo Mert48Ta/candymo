@@ -202,29 +202,26 @@
   </script>
 
 <script>
-  // Navbar scroll pozisyonunu korumak için
-  document.addEventListener('DOMContentLoaded', function() {
-      const navbarContainer = document.getElementById('navbarContainer');
-      const links = navbarContainer.getElementsByTagName('a');
-      
-      for(let link of links) {
-          link.addEventListener('click', function(e) {
-              // Mevcut scroll pozisyonunu localStorage'a kaydet
-              localStorage.setItem('navbarScrollPosition', navbarContainer.scrollLeft);
-          });
-      }
-      
-      // Sayfa yüklendiğinde kaydedilmiş scroll pozisyonunu geri yükle
-      const savedPosition = localStorage.getItem('navbarScrollPosition');
-      if(savedPosition) {
-          navbarContainer.scrollLeft = savedPosition;
-      }
+  // Save scroll position before navigating
+  document.querySelectorAll(".navbar-container a").forEach(link => {
+    link.addEventListener("click", () => {
+      localStorage.setItem("navbarScrollPos", document.getElementById("navbarContainer").scrollLeft);
+    });
+  });
+
+  // Restore scroll position on page load
+  window.addEventListener("load", () => {
+    const savedScrollPos = localStorage.getItem("navbarScrollPos");
+    if (savedScrollPos) {
+      document.getElementById("navbarContainer").scrollLeft = parseInt(savedScrollPos);
+      localStorage.removeItem("navbarScrollPos"); // Clean up after restoring
+    }
   });
 
   // Mevcut scroll fonksiyonu
   function scrollMenu(direction) {
-      const container = document.getElementById('navbarContainer');
-      container.scrollLeft += direction;
+    const container = document.getElementById('navbarContainer');
+    container.scrollLeft += direction;
   }
 </script>
 
