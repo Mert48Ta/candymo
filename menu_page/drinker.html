@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Sayfa Başlığı -->
+    <title>CandyMo 3D Ürün Menüsü - Meşrubatlar</title>
+    
+    <!-- Meta Açıklaması -->
+    <meta name="description" content="CandyMo ürün menüsünde, 3D dinamik tasarım ile sunulan Stawberry, Mojito ve Cool Lime içeceklerini keşfedin. Lezzet ve görselliğin buluştuğu deneyimi yaşayın.">
+    
+    <!-- Meta Anahtar Kelimeler (Opsiyonel) -->
+    <meta name="keywords" content="CandyMo, 3D Ürün Menüsü, Stawberry, Mojito, Cool Lime, içecek menüsü, dinamik tasarım, lezzetli içecekler">
+    
+    <!-- Arama Motoru İndeksleme Ayarı -->
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph Etiketleri (Sosyal Medya Paylaşımı için) -->
+    <meta property="og:title" content="CandyMo 3D Ürün Menüsü - Stawberry, Mojito & Cool Lime">
+    <meta property="og:description" content="3D dinamik tasarım ile sunulan CandyMo menüsünde, Stawberry, Mojito ve Cool Lime gibi özel içecekleri keşfedin.">
+    <meta property="og:image" content="https://candymocoffee.com.tr/img/Logo.png">  <!-- Öne çıkan görsel URL'si -->
+    <meta property="og:url" content="https://candymocoffee.com.tr/candymo-menu">  <!-- Sayfa URL'si -->
+    <meta property="og:type" content="website">
+    
+    <!-- Twitter Kart Etiketleri -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="CandyMo 3D Ürün Menüsü - Stawberry, Mojito & Cool Lime">
+    <meta name="twitter:description" content="3D dinamik tasarım ile sunulan CandyMo menüsünde lezzetli içecekleri keşfedin.">
+    <meta name="twitter:image" content="https://candymocoffee.com.tr/img/Logo.png">  <!-- Öne çıkan görsel URL'si -->
+    
+    <link rel="stylesheet" href="../css/navbar.css">
+    <style>
+      .picker-container {
+          position: relative;
+          width: 100%;
+          height: 100vh;
+          perspective: 1500px;
+          overflow: hidden;
+      }
+      .picker {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform-style: preserve-3d;
+          transform: translate(-50%, -50%);
+          transition: transform 0.1s ease-out;
+      }
+      .picker-item {
+          position: absolute;
+          width: 300px;
+          height: 100px;
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          border-radius: 10px;
+          backface-visibility: hidden;
+          box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+          background-color: white;
+          padding: 10px;
+          gap: 10px;
+          left: -150px;
+      }
+      .product-info {
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          flex: 1;
+      }
+      .product-name {
+          font-size: 16px;
+          font-weight: bold;
+          margin-bottom: 5px;
+      }
+      .product-price {
+          font-size: 14px;
+          color: #555;
+      }
+      .product-image {
+          width: 60px !important;
+          height: 60px !important;
+          object-fit: cover;
+          border-radius: 8px;
+      }
+    </style>
+    
+  </head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="scroll-btn scroll-left" onclick="scrollMenu(-100)">‹</div>
+    <div class="navbar-container" id="navbarContainer">
+        <a href="hot_coffee.html">☕ Sıcak Kahveler</a>
+        <a href="cold_coffee.html">🧊 Soğuk Kahveler</a>
+        <a href="traditaniol_coffee.html">☕ Türk Kahvesi, Sıcak Çikolata ve Salep</a>
+        <a href="tea_kindof.html">🍵 Çay ve Bitki Çayları</a>
+        <a href="drinker.html">🥤 Meşrubatlar</a>
+        <a href="bubble.html">🧋 Bubble</a>
+        <a href="milkshake.html">🥛 Milkshake</a>
+        <a href="frozen.html">❄️ Frozen</a>
+        <a href="frappe.html">🍹 Frappe</a>
+        <a href="special.html">🍸 Mokteyl</a>
+        <a href="matcha.html">🍵 Matcha</a>
+        <a href="desert.html">🍰 Tatlılar</a>
+        <a href="cookie.html">🍪 Atıştırmalıklar</a>
+    </div>
+    <div class="scroll-btn scroll-right" onclick="scrollMenu(100)">›</div>
+</nav>
+
+
+  <!-- 3D Ürün Menüsü -->
+  <div class="picker-container">
+    <!-- Ortadaki seçili öğeyi vurgulayan overlay -->
+    <div class="picker-overlay"></div>
+    <!-- 3D menü alanı (tam merkezde konumlanıyor) -->
+    <div class="picker" id="picker">
+      <!-- Öğeler JavaScript ile oluşturulacak -->
+    </div>
+  </div>
+
+  <script>
+    const picker = document.getElementById('picker');
+
+    // Ürün ve yazı öğelerini içeren veri dizisi
+    const itemsData = [
+        { type: 'product', name: "Kola", price: "65₺", img: "../img/Menu_resimler/Cola.JPG" },
+        { type: 'product', name: "Sprite", price: "65₺", img: "" },
+        { type: 'product', name: "Fanta", price: "65₺", img: "../img/Menu_resimler/Fanta.JPG" },
+        { type: 'product', name: "Churchill", price: "80₺", img: "../img/Menu_resimler/Cola.JPG" },
+        { type: 'product', name: "Soda", price: "45₺", img: "../img/Menu_resimler/Sade_Soda.JPG" },
+        { type: 'product', name: "Meyveli Soda (Elma,Limon)", price: "60₺", img: "../img/Menu_resimler/Merveli_Soda.JPG" },
+        { type: 'product', name: "Fuse Tea (Şeftali,Mango,vs)", price: "65₺", img: "../img/Menu_resimler/Fuestea_Genel_foto.JPG" },
+        { type: 'product', name: "Meyve Suyu (Vişne,Şeftali)", price: "65₺", img: "../img/Menu_resimler/Merve_suyu.JPG" },
+        { type: 'product', name: "Taze Sıkılmış Portakal Suyu", price: "120₺", img: "../img/Menu_resimler/Portakal_Suyu.JPG" },
+        { type: 'product', name: "Ev Yapımı Limonata", price: "125₺", img: "../img/Menu_resimler/Limonata.JPG" },
+        { type: 'product', name: "Su", price: "30₺", img: "" }
+    ].reverse();
+
+    const totalItems = itemsData.length;
+    const anglePerItem = 360 / totalItems;
+    const radius = 250;
+    let currentRotation = 0;
+
+    // Öğeleri dinamik olarak oluşturuyoruz
+    itemsData.forEach((itemData, index) => {
+        const item = document.createElement('div');
+        item.className = 'picker-item';
+        item.innerHTML = `
+            <img src="${itemData.img}" alt="${itemData.name}" class="product-image">
+            <div class="product-info">
+                <span class="product-name">${itemData.name}</span>
+                <span class="product-price">${itemData.price}</span>
+            </div>
+        `;
+        const angle = index * anglePerItem;
+        item.style.transform = `rotateX(${angle}deg) translateZ(${radius}px)`;
+        picker.appendChild(item);
+    });
+
+    const items = document.querySelectorAll('.picker-item');
+
+    function updatePicker() {
+        items.forEach((item, index) => {
+            const angle = (index * anglePerItem) + currentRotation;
+            item.style.transform = `rotateX(${angle}deg) translateZ(${radius}px)`;
+        });
+    }
+
+    let isDragging = false;
+    let startY = 0;
+    let startRotation = 0;
+
+    const container = document.querySelector('.picker-container');
+    let isScrolling = false;
+    let scrollSpeed = 0.5;
+
+    // Ekranın herhangi bir yerine dokunarak kaydırma
+    container.addEventListener('touchstart', (e) => {
+        // Navbar'a tıklanmadığından emin oluyoruz
+        if (!e.target.closest('.navbar')) {
+            isDragging = true;
+            startY = e.touches[0].clientY;
+            startRotation = currentRotation;
+            container.style.cursor = "grabbing";
+        }
+    });
+
+    container.addEventListener('touchmove', (e) => {
+        if (!isDragging) return;
+        const deltaY = e.touches[0].clientY - startY;
+        currentRotation = startRotation + deltaY * 0.5;
+        updatePicker();
+    });
+
+    container.addEventListener('touchend', () => {
+        isDragging = false;
+        currentRotation = Math.round(currentRotation / anglePerItem) * anglePerItem;
+        updatePicker();
+        container.style.cursor = "grab";
+    });
+
+    // Mouse ile kaydırma için
+    container.addEventListener('mousedown', (e) => {
+        // Navbar'a tıklanmadığından emin oluyoruz
+        if (!e.target.closest('.navbar')) {
+            isDragging = true;
+            startY = e.clientY;
+            startRotation = currentRotation;
+            container.style.cursor = "grabbing";
+        }
+    });
+
+    container.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        const deltaY = e.clientY - startY;
+        currentRotation = startRotation + deltaY * 0.5;
+        updatePicker();
+    });
+
+    container.addEventListener('mouseup', () => {
+        isDragging = false;
+        currentRotation = Math.round(currentRotation / anglePerItem) * anglePerItem;
+        updatePicker();
+        container.style.cursor = "grab";
+    });
+
+    // Mouse container dışına çıktığında
+    container.addEventListener('mouseleave', () => {
+        isDragging = false;
+        container.style.cursor = "grab";
+    });
+
+    function smoothScroll() {
+        if (!isScrolling) return;
+        updatePicker();
+        requestAnimationFrame(smoothScroll);
+    }
+
+    container.addEventListener('wheel', (e) => {
+        e.preventDefault();
+        currentRotation -= e.deltaY * scrollSpeed;
+        if (!isScrolling) {
+            isScrolling = true;
+            requestAnimationFrame(smoothScroll);
+        }
+    });
+  </script>
+<script>
+  // Navbar scroll pozisyonunu korumak için
+  document.addEventListener('DOMContentLoaded', function() {
+      const navbarContainer = document.getElementById('navbarContainer');
+      const links = navbarContainer.getElementsByTagName('a');
+      
+      for(let link of links) {
+          link.addEventListener('click', function(e) {
+              // Mevcut scroll pozisyonunu localStorage'a kaydet
+              localStorage.setItem('navbarScrollPosition', navbarContainer.scrollLeft);
+          });
+      }
+      
+      // Sayfa yüklendiğinde kaydedilmiş scroll pozisyonunu geri yükle
+      const savedPosition = localStorage.getItem('navbarScrollPosition');
+      if(savedPosition) {
+          navbarContainer.scrollLeft = savedPosition;
+      }
+  });
+
+  // Mevcut scroll fonksiyonu
+  function scrollMenu(direction) {
+      const container = document.getElementById('navbarContainer');
+      container.scrollLeft += direction;
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Candy-Mo Menu Anasayfa</title>
+  
+  <!-- SEO Meta Etiketleri -->
+  <meta name="description" content="Candy-Mo Menu Anasayfa - 3D Ürün Menüsü ile favori ürünlerinizi keşfedin.">
+  <meta name="keywords" content="Candy-Mo, 3D ürün menüsü, interaktif menü, kahve, çay, tatlı, atıştırmalık">
+  <meta name="author" content="Candy-Mo">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://candymocoffee.com.tr/menu.html">
+  
+  <!-- Open Graph Meta Etiketleri -->
+  <meta property="og:title" content="Candy-Mo Menu Anasayfa">
+  <meta property="og:description" content="Candy-Mo Menu Anasayfa - 3D Ürün Menüsü ile favori ürünlerinizi keşfedin.">
+  <meta property="og:image" content="img/Logo.png">
+  <meta property="og:url" content="https://candymocoffee.com.tr/menu.html">
+  <meta property="og:type" content="website">
+  
+  <!-- Twitter Card Meta Etiketleri -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Candy-Mo Menu Anasayfa">
+  <meta name="twitter:description" content="Candy-Mo Menu Anasayfa - 3D Ürün Menüsü ile favori ürünlerinizi keşfedin.">
+  <meta name="twitter:image" content="https://candymocoffee.com.tr/img/Logo.png">
+  
+  <style>
+    /* Temel stil sıfırlaması */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      background: #f1f1f1;
+      overflow: hidden;
+    }
+    /* Tam ekran kaplayan container */
+    .picker-container {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      perspective: 1200px;
+      background: #fff;
+    }
+    /* 3D menü alanı; container içinde tam merkezde konumlanır */
+    .picker {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      transform-style: preserve-3d;
+      cursor: grab;
+    }
+    /* Her bir öğe (ürün veya yazı) */
+    .picker-item {
+      position: absolute;
+      width: 90%;
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      backface-visibility: hidden;
+      transition: transform 0.5s ease, opacity 0.3s ease;
+    }
+    /* Ürün resmi stili */
+    .picker-item img {
+      width: 50px;
+      height: 50px;
+      object-fit: cover;
+      border-radius: 5px;
+      margin-right: 10px;
+    }
+    /* Ürün bilgilerini içeren kapsayıcı */
+    .product-info {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 10px;
+    }
+    /* Ürün adı */
+    .product-name {
+      font-weight: bold;
+      font-size: 18px;
+      color: #333;
+    }
+    /* Ürün fiyatı */
+    .product-price {
+      font-size: 16px;
+      color: #888;
+    }
+    /* Yazı tipindeki öğeler için stil */
+    .cafe-text {
+      font-size: 24px;
+      font-weight: bold;
+      color: #ff6f61;
+    }
+    /* Overlay: Seçili öğenin bulunduğu ortayı vurgular */
+    .picker-overlay {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      width: 100%;
+      height: 70px;
+      margin-top: -35px;
+      pointer-events: none;
+    }
+    /* Navbar */
+    .navbar {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: linear-gradient(135deg, #a18cd1, #fbc2eb);
+      padding: 10px 0;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      z-index: 1000;
+      overflow: hidden;
+    }
+    /* Navbar Container */
+    .navbar-container {
+      display: flex;
+      align-items: center;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+      padding: 0 50px;
+      gap: 15px;
+    }
+    /* Kategori Linkleri */
+    .navbar-container a {
+      flex-shrink: 0;
+      color: #fff;
+      text-decoration: none;
+      padding: 8px 15px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 20px;
+      transition: all 0.3s, transform 0.3s;
+    }
+    .navbar-container a:hover {
+      background: rgba(255, 255, 255, 0.4);
+      transform: translateY(-3px);
+    }
+    /* Scroll Butonları */
+    .scroll-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0, 0, 0, 0.4);
+      color: #fff;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 1100;
+      transition: background 0.3s;
+    }
+    .scroll-btn:hover {
+      background: rgba(0, 0, 0, 0.6);
+    }
+    .scroll-left {
+      left: 10px;
+    }
+    .scroll-right {
+      right: 10px;
+    }
+    /* Responsive Ayarlar */
+    @media (max-width: 768px) {
+      .navbar-container {
+        padding: 20px 40px;
+      }
+      .navbar-container a {
+        font-size: 14px;
+        padding: 6px 12px;
+      }
+    }
+    @keyframes logoAnimation {
+      0% {
+        transform: scale(0.8);
+        opacity: 0;
+      }
+      50% {
+        transform: scale(1.1);
+        opacity: 1;
+      }
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+    .logo-anim {
+      animation: logoAnimation 3s ease-in-out forwards;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="scroll-btn scroll-left" onclick="scrollMenu(-100)">‹</div>
+    <div class="navbar-container" id="navbarContainer">
+        <a href="menu_page/hot_coffee.html">☕ Sıcak Kahveler</a>
+        <a href="menu_page/cold_coffee.html">🧊 Soğuk Kahveler</a>
+        <a href="menu_page/traditaniol_coffee.html">☕ Türk Kahvesi, Sıcak Çikolata ve Salep</a>
+        <a href="menu_page/tea_kindof.html">🍵 Çay ve Bitki Çayları</a>
+        <a href="menu_page/drinker.html">🥤 Meşrubatlar</a>
+        <a href="menu_page/bubble.html">🧋 Bubble</a>
+        <a href="menu_page/milkshake.html">🥛 Milkshake</a>
+        <a href="menu_page/frozen.html">❄️ Frozen</a>
+        <a href="menu_page/frappe.html">🍹 Frappe</a>
+        <a href="menu_page/special.html">🍸 Mokteyl</a>
+        <a href="menu_page/desert.html">🍰 Tatlılar</a>
+        <a href="menu_page/cookie.html">🍪 Atıştırmalıklar</a>
+    </div>
+    <div class="scroll-btn scroll-right" onclick="scrollMenu(100)">›</div>
+  </nav>
+
+  <!-- 3D Ürün Menüsü -->
+  <div class="picker-container">
+    <img src="img/Logo.png" style="object-fit: cover; max-width: 80%;" alt="Candy-Mo Logo">
+  </div>
+
+  <script>
+    const picker = document.getElementById('picker');
+
+    // Ürün ve yazı öğelerini içeren veri dizisi
+    // const itemsData = [
+    //   { type: 'product', img: "", name: "Ürün A", price: "$10" },
+    //   { type: 'product', img: "", name: "Ürün B", price: "$15" },
+    //   { type: 'product', img: "", name: "Ürün C", price: "$20" },
+    //   { type: 'product', img: "", name: "Ürün D", price: "$25" },
+    //   { type: 'product', img: "", name: "Ürün E", price: "$30" },
+    //   // Araya eklenen yazı öğesi
+    //   { type: 'product', img: "", name: "Ürün F", price: "$35" },
+    //   { type: 'product', img: "", name: "Ürün G", price: "$40" },
+    //   { type: 'product', img: "", name: "Ürün H", price: "$45" },
+    //   { type: 'product', img: "", name: "Ürün I", price: "$50" },
+    //   { type: 'product', img: "", name: "Ürün J", price: "$55" }
+    // ];
+
+    const totalItems = itemsData.length;
+    const anglePerItem = 30;  // Her öğe arası açı (derece)
+    const radius = 250;       // 3D tekerleğin yarıçapı (px)
+    let currentRotation = 0;  // Toplam dönüş açısı
+    let startY = 0;
+    let startRotation = 0;
+    let isDragging = true;
+    let wheelTimeout;
+
+    // Öğeleri dinamik olarak oluşturuyoruz
+    itemsData.forEach((itemData, index) => {
+      const item = document.createElement('div');
+      item.className = 'picker-item';
+      
+      // Ürün mü yoksa yazı mı olduğunu kontrol ediyoruz
+      if(itemData.type === 'product'){
+        item.innerHTML = `
+          <div class="product-info">
+            <span class="product-name">${itemData.name}</span>
+            <span class="product-price">${itemData.price}</span>
+          </div>
+        `;
+      } else if(itemData.type === 'text'){
+        item.innerHTML = `<div class="cafe-text">${itemData.text}</div>`;
+      }
+      
+      // Her öğeyi 3D tekerlek üzerinde konumlandırıyoruz
+      const angle = index * anglePerItem;
+      item.style.transform = `rotateX(${angle}deg) translateZ(${radius}px)`;
+      picker.appendChild(item);
+    });
+
+    const items = document.querySelectorAll('.picker-item');
+
+    // 3D dönüş ve opacity ayarlarını güncelliyoruz
+    function updatePicker() {
+      items.forEach((item, index) => {
+        const angle = (index * anglePerItem) + currentRotation;
+        item.style.transform = `rotateX(${angle}deg) translateZ(${radius}px)`;
+        
+        // Ortadaki (seçili) öğeyi daha belirgin yapmak için opacity hesaplaması
+        let diff = Math.abs(angle % 360);
+        diff = diff > 180 ? 360 - diff : diff;
+        let opacity = 1 - (diff / 90);
+        if (opacity < 0.3) opacity = 0.3;
+        item.style.opacity = opacity;
+      });
+    }
+
+    // Parmağınız/fareniz ile sürükleme
+    picker.addEventListener('pointerdown', (e) => {
+      isDragging = true;
+      startY = e.clientY;
+      startRotation = currentRotation;
+      picker.setPointerCapture(e.pointerId);
+      picker.style.cursor = "grabbing";
+    });
+    picker.addEventListener('pointermove', (e) => {
+      if (!isDragging) return;
+      const deltaY = e.clientY - startY;
+      currentRotation = startRotation + deltaY * 0.5;
+      updatePicker();
+    });
+    picker.addEventListener('pointerup', (e) => {
+      isDragging = false;
+      // En yakın öğeye snap (yuvarlama) efekti
+      currentRotation = Math.round(currentRotation / anglePerItem) * anglePerItem;
+      updatePicker();
+      picker.releasePointerCapture(e.pointerId);
+      picker.style.cursor = "grab";
+    });
+    // Scroll (tekerlek) hareketiyle menüyü hareket ettirme
+    const container = document.querySelector('.picker-container');
+    container.addEventListener('wheel', (e) => {
+      e.preventDefault();
+      currentRotation += e.deltaY * 0.2;
+      updatePicker();
+      clearTimeout(wheelTimeout);
+      wheelTimeout = setTimeout(() => {
+        currentRotation = Math.round(currentRotation / anglePerItem) * anglePerItem;
+        updatePicker();
+      }, 100);
+    });
+  </script>
+  <script>
+    function scrollMenu(amount) {
+      const navbarContainer = document.getElementById("navbarContainer");
+      navbarContainer.scrollLeft += amount;
+    }
+  </script>
+</body>
+</html>

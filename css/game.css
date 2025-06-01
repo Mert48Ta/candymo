@@ -1,0 +1,336 @@
+.game {
+    padding: 6rem 0;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    position: relative;
+    overflow: hidden;
+    margin: 4rem 0;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.game::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><rect width="1" height="1" fill="%234CAF50" opacity="0.05"/></svg>');
+    opacity: 0.5;
+    z-index: 1;
+}
+
+.game .row {
+    position: relative;
+    z-index: 2;
+    margin: 0 2rem;
+    display: flex;
+    align-items: center;
+    gap: 4rem;
+}
+
+.game .column-1 {
+    flex: 1;
+}
+
+.game .column-2 {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.game .title {
+    margin-bottom: 2rem;
+}
+
+.game .title h2 {
+    font-size: 2.5rem;
+    color: #343a40;
+    margin-bottom: 1rem;
+}
+
+.game .title p {
+    font-size: 1.1rem;
+    color: #6c757d;
+    line-height: 1.6;
+}
+
+.game-container {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    height: 400px;
+    background: url('../img/game_bg.jpg') center/cover;
+    border-radius: 20px;
+    overflow: hidden;
+    margin: 0 auto;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.game-area {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+#player {
+    position: absolute;
+    bottom: 20px;
+    width: 80px;
+    height: 20px;
+    background: linear-gradient(90deg, #28a745, #20c997);
+    border-radius: 10px;
+    transition: left 0.1s linear;
+    z-index: 2;
+    box-shadow: 0 4px 15px rgba(40, 167, 69, 0.4);
+}
+
+.coffee {
+    width: 35px;
+    height: 35px;
+    background: url('../img/point.png') center/cover;
+    position: absolute;
+    border-radius: 50%;
+    transition: top 0.1s linear;
+    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
+    animation: rotate 2s linear infinite, float 3s ease-in-out infinite;
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes float {
+    0% { transform: translateX(0) rotate(0deg); }
+    25% { transform: translateX(5px) rotate(90deg); }
+    50% { transform: translateX(0) rotate(180deg); }
+    75% { transform: translateX(-5px) rotate(270deg); }
+    100% { transform: translateX(0) rotate(360deg); }
+}
+
+.point {
+    position: absolute;
+    color: #ffd700;
+    font-weight: bold;
+    font-size: 1.2rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    animation: pointFloat 0.5s ease-out forwards;
+    pointer-events: none;
+}
+
+@keyframes pointFloat {
+    0% { 
+        transform: translateY(0);
+        opacity: 1;
+    }
+    100% { 
+        transform: translateY(-30px);
+        opacity: 0;
+    }
+}
+
+.score {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #fff;
+    z-index: 3;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    background: rgba(0, 0, 0, 0.5);
+    padding: 0.5rem 1rem;
+    border-radius: 15px;
+}
+
+#startButton {
+    display: block;
+    margin: 1.5rem auto 0;
+    padding: 0.75rem 2rem;
+    font-size: 1.1rem;
+    background: linear-gradient(90deg, #28a745, #20c997);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(40, 167, 69, 0.4);
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+#startButton:hover {
+    background: linear-gradient(90deg, #20c997, #28a745);
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(40, 167, 69, 0.5);
+}
+
+.discount-code {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(90deg, #28a745, #20c997);
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 25px;
+    font-weight: bold;
+    text-align: center;
+    display: none;
+    z-index: 3;
+    box-shadow: 0 4px 15px rgba(40, 167, 69, 0.4);
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translate(-50%, 20px); }
+    to { opacity: 1; transform: translate(-50%, 0); }
+}
+
+.game-rules {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 2rem;
+    border-radius: 20px;
+    margin-top: 2rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+}
+
+.game-rules h3 {
+    color: #343a40;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    position: relative;
+    padding-bottom: 0.5rem;
+}
+
+.game-rules h3::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 50px;
+    height: 3px;
+    background: #28a745;
+    border-radius: 3px;
+}
+
+.game-rules ul {
+    list-style: none;
+    padding: 0;
+}
+
+.game-rules li {
+    margin-bottom: 0.8rem;
+    color: #6c757d;
+    display: flex;
+    align-items: center;
+    font-size: 1.1rem;
+}
+
+.game-rules li:before {
+    content: "✓";
+    color: #28a745;
+    font-weight: bold;
+    margin-right: 0.8rem;
+}
+
+.discount-info {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.discount-info h3 {
+    color: #28a745;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+
+.discount-info ul li {
+    color: #666;
+    font-size: 1.1rem;
+    margin-bottom: 0.8rem;
+}
+
+.note {
+    font-size: 0.9rem;
+    color: #888;
+    margin-top: 1rem;
+    font-style: italic;
+    padding: 1rem;
+    background: rgba(40, 167, 69, 0.1);
+    border-radius: 8px;
+}
+
+@media (max-width: 768px) {
+    .game {
+        padding: 3rem 0;
+        margin: 2rem 0;
+    }
+
+    .game .row {
+        flex-direction: column;
+        margin: 0 1rem;
+        gap: 2rem;
+    }
+
+    .game-container {
+        height: 300px;
+        touch-action: pan-y;
+    }
+
+    .game-area {
+        touch-action: pan-y;
+    }
+
+    #player {
+        width: 60px;
+        height: 15px;
+    }
+
+    .coffee {
+        width: 30px;
+        height: 30px;
+    }
+
+    .score {
+        font-size: 1.4rem;
+        padding: 0.4rem 0.8rem;
+    }
+
+    #startButton {
+        padding: 0.6rem 1.5rem;
+        font-size: 1rem;
+        margin: 1rem auto 0;
+    }
+
+    .discount-code {
+        font-size: 0.9rem;
+        padding: 0.8rem 1.5rem;
+    }
+
+    .game-rules {
+        padding: 1.5rem;
+    }
+
+    .game-rules h3 {
+        font-size: 1.3rem;
+    }
+
+    .game-rules li {
+        font-size: 1rem;
+    }
+
+    .game .title h2 {
+        font-size: 2rem;
+    }
+
+    .game .title p {
+        font-size: 1rem;
+    }
+} 

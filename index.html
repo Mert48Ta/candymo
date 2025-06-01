@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="shortcut icon" type="image/x-icon" href="img/Logo.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Candy-Mo</title>
+    
+    <!-- SEO Meta Etiketleri -->
+    <meta name="description" content="Candy-Mo Coffee, eşsiz kafe deneyimi sunan interaktif ve yenilikçi bir mekan. Lezzetli kahveler, çaylar, tatlılar ve yaratıcı konseptimizle hizmetinizde." />
+    <meta name="keywords" content="Candy-Mo, Coffee, Kahve, Çay, Tatlı, Kafe, Modern, Interaktif Menü, Konsept" />
+    <meta name="robots" content="index, follow" />
+    <meta name="author" content="Candy-Mo Coffee" />
+    <link rel="canonical" href="https://candymocoffee.com.tr/" />
+    
+    <!-- Open Graph Meta Etiketleri -->
+    <meta property="og:title" content="Candy-Mo Coffee" />
+    <meta property="og:description" content="Candy-Mo Coffee, eşsiz lezzetleri ve modern konsepti ile sizleri bekliyor." />
+    <meta property="og:image" content="https://candymocoffee.com.tr/img/Logo.png" />
+    <meta property="og:url" content="https://candymocoffee.com.tr/" />
+    <meta property="og:type" content="website" />
+    
+    <!-- Twitter Card Meta Etiketleri -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Candy-Mo Coffee" />
+    <meta name="twitter:description" content="Candy-Mo Coffee, eşsiz lezzetleri ve modern konsepti ile sizleri bekliyor." />
+    <meta name="twitter:image" content="https://candymocoffee.com.tr/img/Logo.png" />
+    
+    <!-- Google Fonts: Poppins -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/game.css" />
+  </head>
+  <body>
+    <!-- Yağmur Efekti -->
+    <div id="rainEffect" class="rain-container">
+      <div class="rain"></div>
+      <div class="rain"></div>
+      <div class="rain"></div>
+      <div class="rain"></div>
+      <div class="rain"></div>
+      <div class="rain"></div>
+      <div class="rain"></div>
+      <div class="rain"></div>
+    </div>
+
+    <!-- Preloader -->
+    <!-- <div class="preloader-wrapper">
+      <div class="spinner-grow"></div>
+    </div> -->
+
+    <!-- Header / Navbar & Hero -->
+    <header>
+      <nav class="navbar">
+        <div class="nav-container">
+          <div class="brand">CandyMo</div>
+          <div class="nav-links">
+            <a href="#home" class="active">Anasayfa</a>
+            <a href="#about">Hakkımızda</a>
+            <a href="#labelCandy">Konseptimiz</a>
+            <a href="menu.html">Menu</a>
+            <a href="#contact">İletişim</a>
+          </div>
+          <!-- Hamburger Butonu -->
+          <div class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </div>
+      </nav>
+      <!-- Mobil Overlay Menü -->
+      <div class="overlay-menu" id="overlayMenu">
+        <ul>
+          <li><a href="#home" onclick="toggleMenu()">Anasayfa</a></li>
+          <li><a href="#about" onclick="toggleMenu()">Hakkımızda</a></li>
+          <li><a href="#labelCandy" onclick="toggleMenu()">Konseptimiz</a></li>
+          <li><a href="menu.html" onclick="toggleMenu()">Menu</a></li>
+          <li><a href="#contact" onclick="toggleMenu()">İletişim</a></li>
+        </ul>
+      </div>
+    </header>
+
+    <!-- Main İçerik -->
+    <main>
+      <!-- About Bölümü -->
+      <section class="about" id="about">
+        <div class="row">
+          <div class="column-1">
+            <img src="img/candymo1.png" alt="CandyMo Coffee" />
+          </div>
+          <div class="column-2">
+            <h2>CandyMo Coffee'ye Hoş Geldiniz</h2>
+            <p>
+              CandyMo Coffee, her bir yudumu keyif serüvenine dönüştüren; sıcak, samimi ve özgün lezzetlerle dolu bir deneyim sunar.
+            </p>
+            <p>
+              Her damlasında kalite ve özgünlük, her köşesinde ayrı bir hikâye barındırır. Sizi, lezzet ve keyfin buluştuğu mekanımıza davet ediyoruz.
+            </p>
+            <a href="https://wa.me/905393479953" class="btn">Whatsapp</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Why Us Bölümü -->
+      <section id="why-us" class="why-us">
+        <div class="row">
+          <div class="column-1">
+            <div class="title">
+              <h2 style="font-size: 4rem;">Neden CandyMo?</h2>
+              <p>Her günü biraz daha tatlandıracak, eşsiz bir deneyim sizi bekliyor!</p>
+            </div>
+          </div>
+          <div class="column-2">
+            <div class="row">
+              <div class="card">
+                <div class="content">
+                  <h1>01</h1>
+                  <h2>Lezzetli Kahveler</h2>
+                  <p>Uzman baristalar tarafından özenle hazırlanan kahvelerimizle tanışın.</p>
+                </div>
+              </div>
+              <div class="card">
+                <div class="content">
+                  <h1>02</h1>
+                  <h2>Şık Atmosfer</h2>
+                  <p>Sıcak, davetkar ve modern mekanımızda keyifli anlar yaşayın.</p>
+                </div>
+              </div>
+              <div class="card">
+                <div class="content">
+                  <h1>03</h1>
+                  <h2>Etkinlik İmkanları</h2>
+                  <p>Özel günlerinizde ve toplantılarınızda mükemmel bir ortam.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Konsept Bölümü -->
+      <section id="labelCandy" class="labelCandy">
+        <div class="row">
+          <div class="column-1">
+            <img src="img/candymo2.png" alt="Konsept" />
+          </div>
+          <div class="column-2">
+            <h2>Konseptimiz</h2>
+            <p>
+              CandyMo Coffee'nin imzası olan pamuk şekeri konsepti, hem göz zevkinize hem de damak tadınıza hitap ediyor.
+            </p>
+            <ol>
+              <li><strong>Özgün Sunum:</strong> Renkli ve yaratıcı pamuk şekeri sunumları.</li>
+              <li><strong>Çeşitli Aromalar:</strong> Vanilya, çilek, muz ve daha fazlasıyla zengin tatlar.</li>
+            </ol>
+            <p>
+              Her detay, sizin için unutulmaz bir kafe deneyimi oluşturmak üzere tasarlandı.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Oyun Bölümü -->
+      <section id="game" class="game">
+        <div class="row">
+          <div class="column-1">
+            <div class="title">
+              <h2>Kahve Yakalama Oyunu</h2>
+              <p>Kahveleri yakalamaya çalış! Bir fincan kaçırırsan oyun biter!</p>
+            </div>
+            <div class="game-rules">
+              <h3>Oyun Kuralları</h3>
+              <ul>
+                <li>Yeşil platformu kontrol ederek kahve fincanlarını yakala</li>
+                <li>Her yakaladığın kahve için 1 puan kazanırsın</li>
+                <li>Bir kahve kaçırırsan oyun biter</li>
+                <li>Her 5 puanda bir zorluk artar</li>
+              </ul>
+              <div class="discount-info">
+                <h3>İndirim Kazanma</h3>
+                <ul>
+                  <li>5 Puan = %5 İndirim</li>
+                  <li>10 Puan = %10 İndirim</li>
+                  <li>15 Puan = %15 İndirim</li>
+                  <li>20 Puan = %20 İndirim</li>
+                </ul>
+                <p class="note">* İndirimler sadece oyun sonunda gösterilen kod ile kullanılabilir.</p>
+              </div>
+            </div>
+          </div>
+          <div class="column-2">
+            <div class="game-container">
+              <div class="score">Skor: <span id="score">0</span></div>
+              <div class="game-area">
+                <div id="player"></div>
+                <div id="coffee"></div>
+              </div>
+              <div id="discountCode" class="discount-code"></div>
+            </div>
+            <button id="startButton" class="btn">Oyunu Başlat</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- İletişim Bölümü -->
+      <section id="contact" class="contact">
+        <div class="row">
+          <div class="column-1">
+            <div class="title">
+              <h2>İletişim</h2>
+              <p>
+                Sorularınız, yorumlarınız veya etkinlik talepleriniz için bizimle iletişime geçin.
+              </p>
+            </div>
+          </div>
+        </div>
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12693.797031214299!2d27.780340277246093!3d37.30818462360491!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14befb43f44da149%3A0x35cbac8df32c86a!2sCandyMo%20Coffe!5e0!3m2!1str!2str!4v1704647669000!5m2!1str!2str"
+          width="100%"
+          height="350"
+          style="border:0;"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+        ></iframe>
+        <div class="row">
+          <div class="card">
+            <div class="content">
+              <i class="fa-solid fa-location-dot"></i>
+              <h2>Konum</h2>
+              <p>İsmetpaşa mah. Turgut Özal Cad. No:1B</p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="content">
+              <i class="fa-regular fa-clock"></i>
+              <h2>Çalışma Saatleri</h2>
+              <p>Her gün 09:00-01:00</p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="content">
+              <i class="fa-regular fa-envelope"></i>
+              <h2>E-mail</h2>
+              <p>destek@candymo.com.tr</p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="content">
+              <i class="fa-solid fa-mobile-screen"></i>
+              <h2>Telefon</h2>
+              <p>0539 347 99 53</p>
+            </div>
+          </div>
+        </div>
+        <form action="https://formspree.io/f/xdoqovza" method="post" style="margin-top: 2rem;">
+          <div style="display: flex; flex-direction: column; gap: 1rem; max-width: 600px; margin: auto;">
+            <input type="text" name="fullname" placeholder="İsim" style="padding: 0.75rem; border: 1px solid #ccc; border-radius: 5px;">
+            <input type="text" name="subject" placeholder="Konu" style="padding: 0.75rem; border: 1px solid #ccc; border-radius: 5px;">
+            <input type="email" name="email" placeholder="E-Mail Giriniz" style="padding: 0.75rem; border: 1px solid #ccc; border-radius: 5px;">
+            <input type="tel" name="phone" placeholder="Telefon Numarsı" style="padding: 0.75rem; border: 1px solid #ccc; border-radius: 5px;">
+            <textarea name="message" placeholder="Mesajınızı yazın" rows="4" style="padding: 0.75rem; border: 1px solid #ccc; border-radius: 5px;"></textarea>
+            <button type="submit" class="btn" style="align-self: flex-start;">Gönder</button>
+          </div>
+        </form>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+      <div style="max-width: 1200px; margin: auto;">
+        <p>CandyMO Coffee 2024 &copy; Tüm Hakları Saklıdır</p>
+        <div class="social-link">
+          <a href="https://www.instagram.com/candymo_coffee?igsh=MWE1YmU0dDdvYW1oaw=="
+            ><i class="fab fa-instagram fa-2x"></i
+          ></a>
+        </div>
+      </div>
+    </footer>
+    <script>
+      const hamburger = document.getElementById('hamburger');
+      const overlayMenu = document.getElementById('overlayMenu');
+      
+      hamburger.addEventListener('click', toggleMenu);
+      
+      function toggleMenu() {
+        overlayMenu.classList.toggle('open');
+        hamburger.classList.toggle('open');
+        if (hamburger.classList.contains('open')) {
+          hamburger.children[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+          hamburger.children[1].style.opacity = '0';
+          hamburger.children[2].style.transform = 'rotate(-45deg) translate(5px, -5px)';
+        } else {
+          hamburger.children[0].style.transform = 'rotate(0) translate(0, 0)';
+          hamburger.children[1].style.opacity = '1';
+          hamburger.children[2].style.transform = 'rotate(0) translate(0, 0)';
+        }
+      }
+    </script>
+    <script src="js/game.js"></script>
+  </body>
+</html>
